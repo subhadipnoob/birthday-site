@@ -1280,22 +1280,43 @@ window.addEventListener('load', () => {
 
             triggerBurst(100);
 
-            setTimeout(() => {
+           setTimeout(() => {
 
-                cakeScene.style.opacity = '0';
+    /* Smooth cake fade */
 
-                setTimeout(() => {
+    cakeScene.style.transition =
+        'opacity 1.8s ease, transform 1.8s ease';
 
-                    cakeScene.style.display = 'none';
+    cakeScene.style.opacity = '0';
 
-                    card.classList.add('show');
-                    
+    cakeScene.style.transform =
+        'translateY(-40px) scale(0.92)';
 
-                    startSlideshow();
+    setTimeout(() => {
 
-                }, 1200);
+        cakeScene.style.display = 'none';
 
-            }, 3000);
+        /* Delay before card appears */
+
+        setTimeout(() => {
+
+            card.style.display = 'block';
+
+            requestAnimationFrame(() => {
+
+                card.classList.add('show');
+
+                launchShootingStar();
+
+                startSlideshow();
+
+            });
+
+        }, 500);
+
+    }, 1800);
+
+}, 2600);
         }
 
         function triggerBurst(count) {
