@@ -1156,6 +1156,58 @@ box-shadow:
 
 
 
+
+
+/* BIRTHDAY PAGE JET */
+
+.birthday-jet {
+
+    position: fixed;
+
+    width: 220px;
+    height: 120px;
+
+    background:
+        url('fighter.png')
+        center/contain no-repeat;
+
+    left: -300px;
+    bottom: -150px;
+
+    z-index: 9999;
+
+    pointer-events: none;
+
+    opacity: 0;
+}
+
+
+/* SMOKE TRAIL */
+
+.birthday-jet::after {
+
+    content: '';
+
+    position: absolute;
+
+    width: 180px;
+    height: 4px;
+
+    background:
+        linear-gradient(to left,
+            rgba(255,255,255,0.7),
+            transparent);
+
+    top: 55%;
+    left: -170px;
+
+    border-radius: 50px;
+
+    filter: blur(2px);
+}
+
+
+
     </style>
 </head>
 
@@ -1512,6 +1564,7 @@ window.addEventListener('load', () => {
             requestAnimationFrame(() => {
 
                 card.classList.add('show');
+                launchBirthdayJet();
 
                 launchShootingStar();
 
@@ -1670,7 +1723,56 @@ fill="#ffcc00"/>
 
         });
 
+
+
+
+
+
+        function launchBirthdayJet() {
+
+    const jet =
+        document.querySelector('.birthday-jet');
+
+    jet.style.transition =
+        'none';
+
+    jet.style.opacity = '1';
+
+    jet.style.left = '-300px';
+
+    jet.style.bottom = '-120px';
+
+    jet.style.transform =
+        'rotate(-18deg)';
+
+    /* START ANIMATION */
+
+    setTimeout(() => {
+
+        jet.style.transition =
+            'all 2.8s cubic-bezier(.22,.61,.36,1)';
+
+        jet.style.left =
+            '120vw';
+
+        jet.style.bottom =
+            '100vh';
+
+    }, 50);
+
+    /* REMOVE */
+
+    setTimeout(() => {
+
+        jet.style.opacity = '0';
+
+    }, 3000);
+}
+
     </script>
+
+
+    <div class="birthday-jet"></div>
 
 </body>
 
