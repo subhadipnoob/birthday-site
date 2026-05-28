@@ -422,7 +422,7 @@ box-shadow:
             opacity: 0;
             pointer-events: none;
             transition: .5s;
-            z-index: 1000;
+            z-index: 20000;
             padding: 20px;
         }
 
@@ -673,6 +673,8 @@ box-shadow:
         font-size: 1rem;
         line-height: 1.8;
     }
+
+    
 
     .btn-close {
         width: 100%;
@@ -1729,47 +1731,86 @@ fill="#ffcc00"/>
 
 
 
-        function launchBirthdayJet() {
+       let jetDirection = 0;
+
+function launchBirthdayJet() {
 
     const jet =
         document.querySelector('.birthday-jet');
 
-    jet.style.transition =
-        'none';
+    function flyJet() {
 
-    jet.style.opacity = '1';
+        jet.style.transition = 'none';
 
-    jet.style.left = '-300px';
+        jet.style.opacity = '1';
 
-    jet.style.bottom = '-120px';
+        /* BOTTOM LEFT → TOP RIGHT */
 
-    jet.style.transform =
-        'rotate(-18deg)';
+        if (jetDirection === 0) {
 
-    /* START ANIMATION */
+            jet.style.left = '-300px';
 
-    setTimeout(() => {
+            jet.style.bottom = '-120px';
 
-        jet.style.transition =
-            'all 2.8s cubic-bezier(.22,.61,.36,1)';
+            jet.style.top = 'auto';
 
-        jet.style.left =
-            '120vw';
+            jet.style.transform =
+                'rotate(-18deg)';
 
-        jet.style.bottom =
-            '100vh';
+            setTimeout(() => {
 
-    }, 50);
+                jet.style.transition =
+                    'all 2.8s cubic-bezier(.22,.61,.36,1)';
 
-    /* REMOVE */
+                jet.style.left = '120vw';
 
-    setTimeout(() => {
+                jet.style.bottom = '100vh';
 
-        jet.style.opacity = '0';
+            }, 50);
 
-    }, 3000);
+            jetDirection = 1;
+        }
+
+        /* TOP LEFT → BOTTOM RIGHT */
+
+        else {
+
+            jet.style.left = '-250px';
+
+            jet.style.top = '-120px';
+
+            jet.style.bottom = 'auto';
+
+            jet.style.transform =
+                'rotate(30deg)';
+
+            setTimeout(() => {
+
+                jet.style.transition =
+                    'all 2.8s cubic-bezier(.22,.61,.36,1)';
+
+                jet.style.left = '120vw';
+
+                jet.style.top = '100vh';
+
+            }, 50);
+
+            jetDirection = 0;
+        }
+    }
+
+    /* FIRST RUN */
+
+    flyJet();
+
+    /* LOOP */
+
+    setInterval(() => {
+
+        flyJet();
+
+    }, 3800);
 }
-
     </script>
 
 
