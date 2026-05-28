@@ -344,27 +344,53 @@ box-shadow:
         }
 
         .slideshow-container {
-            height: 80px;
-            position: relative;
-            margin-bottom: 35px;
-            font-size: 1.2rem;
-            color: #d7eeff;
-            font-family: 'Playfair Display', serif;
-        }
 
-        .slide-text {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: .8s;
-        }
+    position: relative;
 
-        .slide-text.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    height: 80px;
 
+    margin-bottom: 35px;
+
+    overflow: hidden;
+}
+
+       .slide-text {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+
+    text-align: center;
+
+    font-size: 1.2rem;
+
+    color: #d7eeff;
+
+    font-family: 'Playfair Display', serif;
+}
+
+
+.slide-text.active {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+
+        
         .btn-interactive {
             background: linear-gradient(45deg, #1f5f8b, #025586);
             border: none;
@@ -1047,6 +1073,8 @@ box-shadow:
     position: relative;
 }
 
+
+
     </style>
 </head>
 
@@ -1126,21 +1154,21 @@ box-shadow:
 
             <div class="slideshow-container">
 
-                <div class="slide-text active">
-                    "You make every moment feel magical."
-                </div>
+               <div class="slide-text active">
+    "Forever proud of you, my fighter ❤️"
+</div>
 
-                <div class="slide-text">
-                    "Your smile shines brighter than the stars."
-                </div>
+<div class="slide-text">
+    "Your smile shines brighter than the stars."
+</div>
 
-                <div class="slide-text">
-                    "Together, we can conquer every sky."
-                </div>
+<div class="slide-text">
+    "Together, we can conquer every sky."
+</div>
 
-                <div class="slide-text">
-                    "Forever proud of you, my fighter ❤️"
-                </div>
+<div class="slide-text">
+    "Forever proud of you, my fighter ❤️"
+</div>
 
             </div>
 
@@ -1372,23 +1400,34 @@ window.addEventListener('load', () => {
             }
         }
 
-        let currentSlideIdx = 0;
+     let currentSlideIdx = 0;
 
-        function startSlideshow() {
+let slideshowStarted = false;
 
-            const slides = document.querySelectorAll('.slide-text');
+function startSlideshow() {
 
-            setInterval(() => {
+    if (slideshowStarted) return;
 
-                slides[currentSlideIdx].classList.remove('active');
+    slideshowStarted = true;
 
-                currentSlideIdx =
-                    (currentSlideIdx + 1) % slides.length;
+    const slides =
+        document.querySelectorAll('.slide-text');
 
-                slides[currentSlideIdx].classList.add('active');
+    slides[0].classList.add('active');
 
-            }, 3500);
-        }
+    setInterval(() => {
+
+        slides[currentSlideIdx]
+            .classList.remove('active');
+
+        currentSlideIdx =
+            (currentSlideIdx + 1) % slides.length;
+
+        slides[currentSlideIdx]
+            .classList.add('active');
+
+    }, 3500);
+}
 
         function openMessageModal() {
             document.getElementById('messageModal')
