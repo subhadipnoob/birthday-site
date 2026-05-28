@@ -1075,6 +1075,87 @@ box-shadow:
 
 
 
+
+/* AUTO KNIFE */
+
+.knife-container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    cursor: pointer;
+
+    z-index: 100;
+}
+
+.knife {
+
+    font-size: 3.2rem;
+
+    animation:
+        knifeFloat 1.8s ease-in-out infinite,
+        knifeGlow 2s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 0 6px rgba(247, 184, 184, 0.7))
+        drop-shadow(0 0 12px rgba(255,255,255,0.5))
+        drop-shadow(0 0 22px rgba(255,255,255,0.35));
+}
+.knife-text {
+
+    margin-top: 8px;
+
+    font-size: 0.95rem;
+
+    color: rgba(255,255,255,0.65);
+
+    letter-spacing: 1px;
+}
+
+@keyframes knifeFloat {
+
+    0%,100% {
+        transform:
+            translateY(0)
+            rotate(-8deg);
+    }
+
+    50% {
+        transform:
+            translateY(-10px)
+            rotate(8deg);
+    }
+
+    
+}
+
+
+@keyframes knifeGlow {
+
+    0%,100% {
+
+        filter:
+            drop-shadow(0 0 6px rgba(255,255,255,0.55))
+            drop-shadow(0 0 12px rgba(255,255,255,0.35));
+    }
+
+    50% {
+
+        filter:
+            drop-shadow(0 0 10px rgba(228, 174, 174, 0.95))
+            drop-shadow(0 0 20px rgba(255,255,255,0.7))
+            drop-shadow(0 0 35px rgba(255,255,255,0.45));
+    }
+}
+
+
+
+
     </style>
 </head>
 
@@ -1123,24 +1204,54 @@ box-shadow:
             <div class="tap-text">Tap to Open</div>
         </div>
 
-        <div class="cake-scene" id="cakeScene">
 
-            <h2 class="cake-instruction">Mission Birthday Activated ✈️</h2>
 
-            <div class="cake-wrapper" id="cakeWrapper" onclick="cutCakeSequence()">
 
-                <div class="cake-3d-container">
 
-                    <div class="cake-half left" id="cakeLeft"></div>
 
-                    <div class="cake-half right" id="cakeRight"></div>
+        
 
-                </div>
 
-            </div>
-            <div class="cake-tap-text">Tap to cut the cake baby</div>
+
+
+
+       <div class="cake-scene" id="cakeScene">
+
+    <h2 class="cake-instruction">
+        Mission Birthday Activated ✈️
+    </h2>
+
+    <div class="knife-container"
+         onclick="autoCutCake()">
+
+        <div class="knife">
+            🔪
+        </div>
+
+        <div class="knife-text">
+            Tap the knife sweetheart
+        </div>
+
+    </div>
+
+    <div class="cake-wrapper" id="cakeWrapper">
+
+        <div class="cake-3d-container">
+
+            <div class="cake-half left"
+                 id="cakeLeft"></div>
+
+            <div class="cake-half right"
+                 id="cakeRight"></div>
 
         </div>
+
+    </div>
+
+</div>
+
+
+
 
         <div class="glass-card" id="birthdayCard">
 
@@ -1293,6 +1404,74 @@ window.addEventListener('load', () => {
 
             }, 900);
         }
+
+
+
+
+
+       function autoCutCake() {
+
+    const knife =
+        document.querySelector('.knife');
+
+    const cake =
+        document.getElementById('cakeWrapper');
+
+    const cakeRect =
+        cake.getBoundingClientRect();
+
+    /* PREPARE KNIFE */
+
+    knife.style.position = 'fixed';
+
+    knife.style.transition =
+        'all 1.2s ease-in-out';
+
+    knife.style.zIndex = '2000';
+
+    /* MOVE ABOVE CAKE */
+
+    knife.style.left =
+        (cakeRect.left + cakeRect.width / 2 - 25) + 'px';
+
+    knife.style.top =
+        (cakeRect.top - 60) + 'px';
+
+    knife.style.transform =
+        'rotate(90deg) scale(1.2)';
+
+    /* CUT DOWNWARD */
+
+    setTimeout(() => {
+
+        knife.style.transition =
+            'top 1s ease-in-out';
+
+        knife.style.top =
+            (cakeRect.top + cakeRect.height - 40) + 'px';
+
+    }, 1200);
+
+    /* CUT CAKE */
+
+    setTimeout(() => {
+
+        cutCakeSequence();
+
+    }, 2200);
+
+    /* HIDE KNIFE */
+
+    setTimeout(() => {
+
+        knife.style.opacity = '0';
+
+    }, 2500);
+}
+
+
+
+
 
         function cutCakeSequence() {
 
